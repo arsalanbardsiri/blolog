@@ -29,9 +29,9 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
-  ccontext: async ({ req }) => {
+  context: async ({ req }) => {
     const { user } = await authMiddleware(req);
-    return { user }; // Provide user in context
+    return { user };
   },
 });
 
