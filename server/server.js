@@ -3,15 +3,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
-const path = require('path');
-const typeDefs = require("./schemas/typeDefs")
+const path = require("path");
+const typeDefs = require("./schemas/typeDefs");
 const resolvers = require("./schemas/resolvers");
 const commentRoutes = require("./routes/commentRoutes");
 const postRoutes = require("./routes/postRoutes");
 const stripeRoutes = require("./routes/stripeRoutes");
 const userRoutes = require("./routes/userRoutes");
 // const jwt = require('jsonwebtoken');
-const { authMiddleware } = require('./utils/auth');
+const { authMiddleware } = require("./utils/auth");
 
 const app = express();
 app.use(cors());
@@ -42,9 +42,9 @@ const server = new ApolloServer({
 
   // Serve static files in production
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/build")));
+    app.use(express.static(path.join(__dirname, "../client/dist")));
     app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+      res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
     });
   }
 
