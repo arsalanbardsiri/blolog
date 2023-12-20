@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-// https://vitejs.dev/config/
+// Environment variable for the API URL
+const apiURL = process.env.VITE_API_URL || 'http://localhost:4000';
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -9,11 +11,10 @@ export default defineConfig({
     open: true,
     proxy: {
       "/graphql": {
-        target: "http://localhost:4000",
+        target: apiURL,
         secure: false,
         changeOrigin: true,
       },
     },
   },
 });
-
