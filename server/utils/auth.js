@@ -5,26 +5,19 @@ const User = require('../models/User'); // Adjust the path as necessary
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware for verifying JWT tokens in HTTP requests
-const authMiddleware = async (req, res, next) => {
+const authMiddleware = async (req) => {
   try {
     const authHeader = req.headers.authorization || '';
     if (!authHeader.startsWith('Bearer ')) {
-      throw new Error('No token provided');
+      return { user: null }; // No token provided
     }
 
-    const token = authHeader.substring(7); // Correctly extract the token
+    const token = authHeader.substring(7);
     const decoded = jwt.verify(token, JWT_SECRET);
-
-    // Find the user based on the decoded token
     const user = await User.findById(decoded.id).select('-password');
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    req.user = user;
-    next();
+    return { user };
   } catch (error) {
-    res.status(401).json({ message: 'Invalid or expired token' });
+    return { user: null }; // Invalid or expired token
   }
 };
 

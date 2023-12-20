@@ -1,5 +1,5 @@
 // client/src/utils/mutations.js
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_USER = gql`
   mutation CreateUser($username: String!, $email: String!, $password: String!) {
@@ -13,7 +13,6 @@ export const CREATE_USER = gql`
     }
   }
 `;
-
 
 export const CREATE_POST = gql`
   mutation CreatePost($title: String!, $content: String!, $authorId: ID!) {
@@ -47,8 +46,6 @@ export const DELETE_POST = gql`
     deletePost(postId: $postId)
   }
 `;
-
-
 
 export const CREATE_COMMENT = gql`
   mutation CreateComment($content: String!, $postId: ID!, $authorId: ID!) {

@@ -29,14 +29,10 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
-  context: async ({ req }) => {
-  try {
-    const modifiedReq = await authMiddleware(req);
-    return { req: modifiedReq };
-  } catch (err) {
-    throw err; // Or handle the error as you see fit
-  }
-},
+  ccontext: async ({ req }) => {
+    const { user } = await authMiddleware(req);
+    return { user }; // Provide user in context
+  },
 });
 
 // Start Apollo Server
