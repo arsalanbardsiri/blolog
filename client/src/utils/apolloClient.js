@@ -1,14 +1,13 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import AuthService from "../utils/auth";
 
+// Environment variable for the API URL
+const apiURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 // HTTP connection to the GraphQL API
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql", // Your GraphQL server URI
+  uri: `${apiURL}/graphql`, // Dynamically set the GraphQL server URI
 });
 
 // Middleware to attach the token to requests
